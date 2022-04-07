@@ -2,14 +2,16 @@
 Display your Screen on a WS2812b LED Matrix<br />
 With this application you can Screenshare your desktop to an ESP-Connected WS2812b LED Matrix.
 
-##How to use
+## How to use
+
 Please download the Arduino Code and configure the Size of your Matrix.<br />
 The Program should be able to handle every Size as well as a Matrix with more than one Tile.<br />
 For information about the Matrix configuration visit the [Adafruit Website](https://learn.adafruit.com/adafruit-neopixel-uberguide/neomatrix-library))
 
 After changing the settings in the Code upload the sketch to your controller.<br />
 it is recommended to use a ESP32.<br />
-If the Upload is finished the ESP starts to connect to your WiFi, if the connection was successful the Matrix should light up in pink.<br />
+If the Upload is finished the ESP starts to connect to your WiFi,<br />
+if the connection was successful the Matrix should light up in pink.<br />
 Now you can install the Windows application.
 
 Download the necessary Files and complete the setup.<br />
