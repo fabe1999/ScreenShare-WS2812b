@@ -278,6 +278,7 @@
             this.Controls.Add(this.labPreview);
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 100);
             this.Name = "Share";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
