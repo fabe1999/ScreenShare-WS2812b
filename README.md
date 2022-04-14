@@ -28,4 +28,4 @@ After you established a connection you can start sharing your screen by hitting 
 <br />
 # Licensing 
 This code isn't protected in any way, so if you want to use it for own projects or tinker with the software feel free to do so.<br />
-If you incorporate this code in your own project please let me know no I can check it out.
+If you incorporate this code in your own project please let me know so I can check it out.
