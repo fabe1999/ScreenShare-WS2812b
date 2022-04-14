@@ -21,26 +21,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
-        "OwnerKey" = "8:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
+        "MsmKey" = "8:_558E082F4DBE457DB56764732570902D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
+        "MsmKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
+        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -237,12 +237,12 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScreenShare WS2812B"
-        "ProductCode" = "8:{949195EF-EE37-4697-B4E9-9E2F96C96BA5}"
-        "PackageCode" = "8:{82F93B28-10EF-4302-B385-F9989F663208}"
-        "UpgradeCode" = "8:{4552604D-22A3-4629-8FA7-688470B479E3}"
+        "ProductCode" = "8:{97204143-8DC7-4A45-B7CC-2E01FBF17CC4}"
+        "PackageCode" = "8:{4400B4AD-45A8-4E71-B055-48614AF7F3A2}"
+        "UpgradeCode" = "8:{A1E1315E-4B9D-4991-A658-927F5B9D55C6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:TRUE"
+        "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.1"
@@ -358,7 +358,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_06B0458D4F6C44EBA59FA2C6CE76DA33"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_799EA5163705407C891F1261BC13F876"
             {
             "Name" = "8:ScreenShare WS2812B"
             "Arguments" = "8:"
@@ -366,13 +366,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
+            "Target" = "8:_558E082F4DBE457DB56764732570902D"
             "Folder" = "8:_4F195C9C32834CDEBDA8DEBB5293CDC8"
             "WorkingFolder" = "8:_48653DFC589841E5B7624C2FD504D7FE"
             "Icon" = "8:_4083B8D420434395A887A7E969C62D03"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1D9EFB7468BC49B580A53AD97D168588"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B95D0B785BD04637BAF718E10A0813F8"
             {
             "Name" = "8:ScreenShare WS2812B"
             "Arguments" = "8:"
@@ -380,7 +380,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
+            "Target" = "8:_558E082F4DBE457DB56764732570902D"
             "Folder" = "8:_CD9EF9DBCB8048A8AD022184FC3DEBB8"
             "WorkingFolder" = "8:_48653DFC589841E5B7624C2FD504D7FE"
             "Icon" = "8:_4083B8D420434395A887A7E969C62D03"
@@ -785,7 +785,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BACDCF72C45E43C4ACF18CFBC3BB5F73"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_558E082F4DBE457DB56764732570902D"
             {
             "SourcePath" = "8:..\\ScreenShare_WS2812b\\obj\\Debug\\ScreenShare_WS2812b.exe"
             "TargetName" = "8:"
