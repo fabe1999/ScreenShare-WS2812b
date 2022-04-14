@@ -167,7 +167,7 @@
             this.labVer.Name = "labVer";
             this.labVer.Size = new System.Drawing.Size(122, 26);
             this.labVer.TabIndex = 14;
-            this.labVer.Text = "created by fabe1999\r\nlast updated 04.04.2022";
+            this.labVer.Text = "created by fabe1999\r\nlast updated 14.04.2022";
             // 
             // chbTop
             // 
@@ -203,6 +203,7 @@
             this.Controls.Add(this.btnSave);
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "configEditor";
