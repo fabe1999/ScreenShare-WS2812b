@@ -132,7 +132,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
     <Content Include="ScreenShare-Icon.ico" />
   </ItemGroup>
   <ItemGroup>

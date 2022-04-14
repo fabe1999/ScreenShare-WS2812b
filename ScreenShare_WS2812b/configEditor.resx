@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="labInfo.Text" xml:space="preserve">
-    <value>Please fill out the Boxes on the left
-and click save to create a new Config.
+    <value>Please fill out the boxes on the left
+and click save to create a new config.
 
 To use the Screenshare program you need a
 WiFi-enabled microcontroller to drive the WS2812b LED matrix.
 It is recommended to use a ESP32 Board.
-if you haven't configured the ESP already please download the Arduino code
-and configure your WiFi credentials as well as the Size of your Matrix.
+If you haven't configured the ESP already please download the Arduino code
+and configure your WiFi credentials as well as the size of your matrix.
 
-The Windows application will configure the Matrix-size automatically
+The Windows application will configure the matrix-size automatically
 after a connection to the ESP is established.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
