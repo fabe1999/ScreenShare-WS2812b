@@ -14,7 +14,7 @@ If the Upload is finished the ESP starts to connect to your WiFi,<br />
 if the connection was successful the Matrix should light up in pink.<br />
 Now you can install the Windows application.
 
-Download the necessary Files and complete the setup.<br />
+Download the Files from the Windows-Setup folder and run through the setup.<br />
 At the first startup you need to specify which IP-Address you want to connect to,<br />
 you probably have to look up the IP in the settings of your WiFi router.<br />
 Click on save and the application should start.<br />
