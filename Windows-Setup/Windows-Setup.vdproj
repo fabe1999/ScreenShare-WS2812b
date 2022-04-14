@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
+        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
+        "OwnerKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -100,6 +100,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -237,15 +245,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScreenShare WS2812B"
-        "ProductCode" = "8:{97204143-8DC7-4A45-B7CC-2E01FBF17CC4}"
-        "PackageCode" = "8:{4400B4AD-45A8-4E71-B055-48614AF7F3A2}"
-        "UpgradeCode" = "8:{A1E1315E-4B9D-4991-A658-927F5B9D55C6}"
+        "ProductCode" = "8:{ABE38861-EDF8-47B4-B1BE-53ED51C14721}"
+        "PackageCode" = "8:{358FFE64-2464-4A89-842D-1B729C03ACBB}"
+        "UpgradeCode" = "8:{B81A6F7F-EA38-4D98-B530-96A31DF3AC48}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:fabe1999"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/fabe1999/ScreenShare-WS2812b"

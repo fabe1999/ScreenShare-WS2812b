@@ -230,7 +230,7 @@
             this.btnResize.Name = "btnResize";
             this.btnResize.Size = new System.Drawing.Size(116, 81);
             this.btnResize.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.btnResize, "Resize the Window to its Original size");
+            this.toolTip1.SetToolTip(this.btnResize, "Resize the window to its original size");
             this.btnResize.UseVisualStyleBackColor = false;
             this.btnResize.Click += new System.EventHandler(this.btnResize_Click);
             // 

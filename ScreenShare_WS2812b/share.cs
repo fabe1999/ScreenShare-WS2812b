@@ -51,7 +51,7 @@ namespace ScreenShare_WS2812b
                     while (result == DialogResult.Cancel)
                     {
                         //If the User tries to start the Program without saving a Config an error Message is displayed
-                        var retry = MessageBox.Show("You cant use this Program without a Configuration.\nIf you press Cancel the Program will be closed.", "Please create a Configuration", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                        var retry = MessageBox.Show("You can´t use this Program without a Configuration.\nIf you press Cancel the Program will be closed.", "Please create a Configuration", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                         if (retry == DialogResult.Retry)
                         {
                             result = form.ShowDialog();
