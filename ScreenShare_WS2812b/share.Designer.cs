@@ -40,15 +40,16 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.labConnected = new System.Windows.Forms.Label();
             this.labPreview = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tabControlls = new System.Windows.Forms.TableLayoutPanel();
             this.btnResize = new System.Windows.Forms.Button();
             this.btnConfig = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnPopout = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevOrig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevMatrix)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tabControlls.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -118,9 +119,9 @@
             this.btnStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(3, 90);
+            this.btnStop.Location = new System.Drawing.Point(3, 116);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(116, 81);
+            this.btnStop.Size = new System.Drawing.Size(116, 72);
             this.btnStop.TabIndex = 23;
             this.toolTip1.SetToolTip(this.btnStop, "Pause the Screensharing");
             this.btnStop.UseVisualStyleBackColor = false;
@@ -134,7 +135,7 @@
             this.labCapture.ForeColor = System.Drawing.Color.White;
             this.labCapture.Location = new System.Drawing.Point(12, 10);
             this.labCapture.Name = "labCapture";
-            this.labCapture.Size = new System.Drawing.Size(86, 16);
+            this.labCapture.Size = new System.Drawing.Size(85, 16);
             this.labCapture.TabIndex = 22;
             this.labCapture.Text = "Capture area";
             // 
@@ -162,9 +163,9 @@
             this.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(3, 3);
+            this.btnStart.Location = new System.Drawing.Point(3, 38);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(116, 81);
+            this.btnStart.Size = new System.Drawing.Size(116, 72);
             this.btnStart.TabIndex = 20;
             this.toolTip1.SetToolTip(this.btnStart, "Start the Screensharing");
             this.btnStart.UseVisualStyleBackColor = false;
@@ -189,30 +190,32 @@
             this.labPreview.ForeColor = System.Drawing.Color.White;
             this.labPreview.Location = new System.Drawing.Point(518, 10);
             this.labPreview.Name = "labPreview";
-            this.labPreview.Size = new System.Drawing.Size(56, 16);
+            this.labPreview.Size = new System.Drawing.Size(55, 16);
             this.labPreview.TabIndex = 31;
             this.labPreview.Text = "Preview";
             // 
-            // tableLayoutPanel2
+            // tabControlls
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControlls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.btnStart, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnStop, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.btnResize, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.btnConfig, 0, 3);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(777, 177);
-            this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(122, 430);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(122, 349);
-            this.tableLayoutPanel2.TabIndex = 32;
+            this.tabControlls.ColumnCount = 1;
+            this.tabControlls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tabControlls.Controls.Add(this.btnStart, 0, 1);
+            this.tabControlls.Controls.Add(this.btnStop, 0, 2);
+            this.tabControlls.Controls.Add(this.btnResize, 0, 3);
+            this.tabControlls.Controls.Add(this.btnConfig, 0, 4);
+            this.tabControlls.Controls.Add(this.btnPopout, 0, 0);
+            this.tabControlls.Location = new System.Drawing.Point(777, 177);
+            this.tabControlls.MaximumSize = new System.Drawing.Size(122, 430);
+            this.tabControlls.Name = "tabControlls";
+            this.tabControlls.RowCount = 5;
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.20408F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
+            this.tabControlls.Size = new System.Drawing.Size(122, 349);
+            this.tabControlls.TabIndex = 32;
             // 
             // btnResize
             // 
@@ -226,9 +229,9 @@
             this.btnResize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResize.ForeColor = System.Drawing.Color.White;
-            this.btnResize.Location = new System.Drawing.Point(3, 177);
+            this.btnResize.Location = new System.Drawing.Point(3, 194);
             this.btnResize.Name = "btnResize";
-            this.btnResize.Size = new System.Drawing.Size(116, 81);
+            this.btnResize.Size = new System.Drawing.Size(116, 72);
             this.btnResize.TabIndex = 24;
             this.toolTip1.SetToolTip(this.btnResize, "Resize the window to its original size");
             this.btnResize.UseVisualStyleBackColor = false;
@@ -246,9 +249,9 @@
             this.btnConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfig.ForeColor = System.Drawing.Color.White;
-            this.btnConfig.Location = new System.Drawing.Point(3, 264);
+            this.btnConfig.Location = new System.Drawing.Point(3, 272);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(116, 82);
+            this.btnConfig.Size = new System.Drawing.Size(116, 74);
             this.btnConfig.TabIndex = 25;
             this.toolTip1.SetToolTip(this.btnConfig, "Change the settings");
             this.btnConfig.UseVisualStyleBackColor = false;
@@ -263,13 +266,31 @@
             this.toolTip1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.toolTip1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             // 
+            // btnPopout
+            // 
+            this.btnPopout.BackColor = System.Drawing.Color.Transparent;
+            this.btnPopout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPopout.BackgroundImage")));
+            this.btnPopout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPopout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPopout.FlatAppearance.BorderSize = 0;
+            this.btnPopout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnPopout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.btnPopout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPopout.ForeColor = System.Drawing.Color.White;
+            this.btnPopout.Location = new System.Drawing.Point(3, 3);
+            this.btnPopout.Name = "btnPopout";
+            this.btnPopout.Size = new System.Drawing.Size(116, 29);
+            this.btnPopout.TabIndex = 26;
+            this.btnPopout.UseVisualStyleBackColor = false;
+            this.btnPopout.Click += new System.EventHandler(this.btnPopout_Click);
+            // 
             // Share
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.ClientSize = new System.Drawing.Size(911, 539);
-            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.tabControlls);
             this.Controls.Add(this.labConnected);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnConnect);
@@ -288,7 +309,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevOrig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevMatrix)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tabControlls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,17 +321,18 @@
         private System.Windows.Forms.PictureBox pbPrevOrig;
         private System.Windows.Forms.PictureBox pbPrevMatrix;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Label labCapture;
         private System.Windows.Forms.Panel pnlShot;
-        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label labConnected;
         private System.Windows.Forms.Label labPreview;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button btnResize;
-        private System.Windows.Forms.Button btnConfig;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnPopout;
+        public System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Button btnStart;
+        public System.Windows.Forms.Button btnStop;
+        public System.Windows.Forms.TableLayoutPanel tabControlls;
+        public System.Windows.Forms.Button btnResize;
+        public System.Windows.Forms.Button btnConfig;
     }
 }
 

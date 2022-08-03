@@ -268,6 +268,15 @@ namespace ScreenShare_WS2812b
 
 
 
+        private void btnPopout_Click(object sender, EventArgs e)
+        {
+            //popout the controlls
+            var form = new controll();
+            form.Show(this);
+        }
+
+
+
         private void btnResize_Click(object sender, EventArgs e)
         {
             //Reset the Size to the Original window Size
@@ -285,5 +294,6 @@ namespace ScreenShare_WS2812b
                 udpSock.SendTo(send_buffer, ipESPendpoint);
             }
         }
+
     }
 }
