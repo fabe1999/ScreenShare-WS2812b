@@ -36,7 +36,10 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, pin,
 //No need to change anything after this Point.
 WiFiUDP Udp;
 unsigned int localUdpPort = 4210;
-char incomingPacket[999];
+
+//Claculate the maximum Package Length
+const int udpCharLen = (width*12)+10;
+char incomingPacket[udpCharLen];
 
 
 
@@ -85,7 +88,7 @@ void loop()
   int packetSize = Udp.parsePacket();
   if (packetSize)
   {
-    int len = Udp.read(incomingPacket, 999);
+    int len = Udp.read(incomingPacket, udpCharLen);
     if (len > 0)
     {
       incomingPacket[len] = 0;
