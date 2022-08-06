@@ -171,7 +171,7 @@
             this.labVer.Name = "labVer";
             this.labVer.Size = new System.Drawing.Size(122, 26);
             this.labVer.TabIndex = 14;
-            this.labVer.Text = "created by fabe1999\r\nlast updated 14.04.2022";
+            this.labVer.Text = "created by fabe1999\r\nlast updated 06.08.2022";
             // 
             // chbTop
             // 
