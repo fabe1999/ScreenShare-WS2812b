@@ -8,7 +8,7 @@
 //This Program is used in Combination with a Windows Forms Application to Screenshare your PC Screen to an WS2812b Matrix
 //It is recomendet to use a ESP32
 //Created by fabe1999
-//last updated: 04.04.2022
+//last updated: 06.08.2022
 
 
 
@@ -26,7 +26,7 @@ const int height = 16;
 //For mor Information Visit the Adafruit NeoMatrix Guide: https://learn.adafruit.com/adafruit-neopixel-uberguide/neomatrix-library
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, pin,
                             NEO_MATRIX_BOTTOM     + NEO_MATRIX_LEFT +
-                            NEO_MATRIX_ROWS + NEO_MATRIX_ZIGZAG,
+                            NEO_MATRIX_ROWS  + NEO_MATRIX_ZIGZAG,
                             NEO_GRB            + NEO_KHZ800);
 
 
@@ -35,10 +35,9 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, pin,
 
 //No need to change anything after this Point.
 WiFiUDP Udp;
-unsigned int localUdpPort = 4210;
-
 //Claculate the maximum Package Length
 const int udpCharLen = (width*12)+10;
+unsigned int localUdpPort = 4210;
 char incomingPacket[udpCharLen];
 
 
@@ -49,6 +48,7 @@ void setup()
   matrix.begin();
   matrix.clear();
   matrix.show();
+
 
   //Try to connect to the WiFi
   WiFi.setHostname("ledMatrix");
@@ -122,6 +122,11 @@ void loop()
       }
       matrix.clear();
       matrix.show();
+    }
+    //If the Send String starts with a B the Windows programm sends the maximum allowed Matrix Brightness
+    else if(udpIn[0] == 'B')
+    {
+      matrix.setBrightness(udpIn.substring(2).toInt());
     }
     //If the Send String starts with a X the Windows program is closing, Clear the Matrix so the last Picture wont stay on there
     else if(udpIn[0] == 'X')

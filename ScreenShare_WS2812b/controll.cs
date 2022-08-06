@@ -23,16 +23,31 @@ namespace ScreenShare_WS2812b
             if (form != null)
             {
                 //Move thr Controllbuttons on the Share form out of Sight
-               form.tabControlls.Location = new Point(1000, 177);
+                form.tabControlls.Location = new Point((form.Size.Width + 100), 177);
+                form.bControlls = true;
             }
         }
+
+
+
         private void controll_FormClosing(object sender, FormClosingEventArgs e)
         {
             var form = (Share)this.Owner;
             if (form != null)
             {
+                //If the User want to close the controlls but the Main form is to small cancel the closing event.
+                if (form.Size.Height < 578)
+                {
+                    if (e.CloseReason == CloseReason.UserClosing)
+                    {
+                        e.Cancel = true;
+                        MessageBox.Show("There isn't enough space to put the controlls back in the Main window.\nPlease resize the window and try again.", "Main window to small", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    return;
+                }
                 //Bring back the Controllbuttons on the Share form
-                form.tabControlls.Location = new Point(777, 177);
+                form.tabControlls.Location = new Point(form.Size.Width - form.tabControlls.Size.Width - 20, 177);
+                form.bControlls = false;
             }
         }
 
@@ -40,6 +55,15 @@ namespace ScreenShare_WS2812b
 
         //Buttons are Simply connected to the Main Form,
         //If the Funktion of a Button from the Main Window is Changed the Controll form dosnt have to change
+        private void btnPdf_Click(object sender, EventArgs e)
+        {
+            var form = (Share)this.Owner;
+            if (form != null)
+            {
+                form.btnPdf.PerformClick();
+            }
+        }
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             var form = (Share)this.Owner;
@@ -75,5 +99,6 @@ namespace ScreenShare_WS2812b
                 form.btnConfig.PerformClick();
             }
         }
+
     }
 }

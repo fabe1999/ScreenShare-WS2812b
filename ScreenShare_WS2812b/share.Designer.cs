@@ -41,15 +41,18 @@
             this.labConnected = new System.Windows.Forms.Label();
             this.labPreview = new System.Windows.Forms.Label();
             this.tabControlls = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnPdf = new System.Windows.Forms.Button();
+            this.btnPopout = new System.Windows.Forms.Button();
             this.btnResize = new System.Windows.Forms.Button();
             this.btnConfig = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnPopout = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevOrig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevMatrix)).BeginInit();
             this.tabControlls.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -196,26 +199,79 @@
             // 
             // tabControlls
             // 
-            this.tabControlls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlls.ColumnCount = 1;
             this.tabControlls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tabControlls.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tabControlls.Controls.Add(this.btnStart, 0, 1);
             this.tabControlls.Controls.Add(this.btnStop, 0, 2);
             this.tabControlls.Controls.Add(this.btnResize, 0, 3);
             this.tabControlls.Controls.Add(this.btnConfig, 0, 4);
-            this.tabControlls.Controls.Add(this.btnPopout, 0, 0);
             this.tabControlls.Location = new System.Drawing.Point(777, 177);
             this.tabControlls.MaximumSize = new System.Drawing.Size(122, 430);
+            this.tabControlls.MinimumSize = new System.Drawing.Size(122, 150);
             this.tabControlls.Name = "tabControlls";
             this.tabControlls.RowCount = 5;
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.20408F));
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.44898F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tabControlls.Size = new System.Drawing.Size(122, 349);
             this.tabControlls.TabIndex = 32;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.btnPdf, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnPopout, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(116, 29);
+            this.tableLayoutPanel2.TabIndex = 33;
+            // 
+            // btnPdf
+            // 
+            this.btnPdf.BackColor = System.Drawing.Color.Transparent;
+            this.btnPdf.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPdf.BackgroundImage")));
+            this.btnPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPdf.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPdf.FlatAppearance.BorderSize = 0;
+            this.btnPdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnPdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.btnPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPdf.ForeColor = System.Drawing.Color.White;
+            this.btnPdf.Location = new System.Drawing.Point(61, 3);
+            this.btnPdf.Name = "btnPdf";
+            this.btnPdf.Size = new System.Drawing.Size(52, 23);
+            this.btnPdf.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.btnPdf, "Open user guide");
+            this.btnPdf.UseVisualStyleBackColor = false;
+            this.btnPdf.Click += new System.EventHandler(this.btnPdf_Click);
+            // 
+            // btnPopout
+            // 
+            this.btnPopout.BackColor = System.Drawing.Color.Transparent;
+            this.btnPopout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPopout.BackgroundImage")));
+            this.btnPopout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPopout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPopout.FlatAppearance.BorderSize = 0;
+            this.btnPopout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnPopout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.btnPopout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPopout.ForeColor = System.Drawing.Color.White;
+            this.btnPopout.Location = new System.Drawing.Point(3, 3);
+            this.btnPopout.Name = "btnPopout";
+            this.btnPopout.Size = new System.Drawing.Size(52, 23);
+            this.btnPopout.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.btnPopout, "Detach controlls from Window");
+            this.btnPopout.UseVisualStyleBackColor = false;
+            this.btnPopout.Click += new System.EventHandler(this.btnPopout_Click);
             // 
             // btnResize
             // 
@@ -266,24 +322,6 @@
             this.toolTip1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.toolTip1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             // 
-            // btnPopout
-            // 
-            this.btnPopout.BackColor = System.Drawing.Color.Transparent;
-            this.btnPopout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPopout.BackgroundImage")));
-            this.btnPopout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnPopout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPopout.FlatAppearance.BorderSize = 0;
-            this.btnPopout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.btnPopout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.btnPopout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPopout.ForeColor = System.Drawing.Color.White;
-            this.btnPopout.Location = new System.Drawing.Point(3, 3);
-            this.btnPopout.Name = "btnPopout";
-            this.btnPopout.Size = new System.Drawing.Size(116, 29);
-            this.btnPopout.TabIndex = 26;
-            this.btnPopout.UseVisualStyleBackColor = false;
-            this.btnPopout.Click += new System.EventHandler(this.btnPopout_Click);
-            // 
             // Share
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,10 +344,12 @@
             this.Text = "Screen-Share";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Share_FormClosing);
             this.Load += new System.EventHandler(this.Share_Load);
+            this.SizeChanged += new System.EventHandler(this.Share_SizeChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevOrig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPrevMatrix)).EndInit();
             this.tabControlls.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,13 +366,15 @@
         private System.Windows.Forms.Label labConnected;
         private System.Windows.Forms.Label labPreview;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button btnPopout;
         public System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.Button btnStart;
         public System.Windows.Forms.Button btnStop;
         public System.Windows.Forms.TableLayoutPanel tabControlls;
         public System.Windows.Forms.Button btnResize;
         public System.Windows.Forms.Button btnConfig;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button btnPopout;
+        public System.Windows.Forms.Button btnPdf;
     }
 }
 

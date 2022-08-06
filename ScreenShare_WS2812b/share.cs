@@ -27,6 +27,7 @@ namespace ScreenShare_WS2812b
         int iLEDwidth = 0;
         int iLEDheight = 0;
         bool bConnected = false;
+        public bool bControlls = false;
         Socket udpSock;
         IPAddress ipESP;
         IPEndPoint ipESPendpoint;
@@ -78,6 +79,8 @@ namespace ScreenShare_WS2812b
                 {
                     //If the Configuration is Changed reload all the variables
                     readConfig();
+                    //If the Configuration has changed the Connection to the ESP has to be reetablished so the Changes can take effect.
+                    btnConnect.PerformClick();
                 }
             }
         }
@@ -124,7 +127,7 @@ namespace ScreenShare_WS2812b
                 btnConnect.FlatAppearance.MouseOverBackColor = Color.LightGreen;
                 btnConnect.Text = "Connected";
                 //The Matrix Size is displayed to verify the correct configuration
-                labConnected.Text = "Connected to\n" + ipESPendpoint + "\n\nMatrix size\nWidth = " + iLEDwidth + "\nHeight = " + iLEDheight;
+                labConnected.Text = "Connected to\n" + ipESPendpoint + "\n\nMatrix size\nWidth = " + iLEDwidth + "\nHeight = " + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]);
                 return;
             }
             else
@@ -162,6 +165,11 @@ namespace ScreenShare_WS2812b
             {
                 MessageBox.Show(ex.ToString());
             }
+
+            //Send the Maximum Brightness to the ESP
+            text = "B-" + ConfigurationManager.AppSettings["brightness"];
+            send_buffer = Encoding.ASCII.GetBytes(text);
+            udpSock.SendTo(send_buffer, ipESPendpoint);
         }
 
 
@@ -272,7 +280,17 @@ namespace ScreenShare_WS2812b
         {
             //popout the controlls
             var form = new controll();
+            form.Location = new Point(this.Right + 10, this.Bottom - form.Height);
             form.Show(this);
+        }
+
+
+        private void Share_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.Height <= 578 && !bControlls)
+            {
+                btnPopout.PerformClick();
+            }
         }
 
 
@@ -281,6 +299,13 @@ namespace ScreenShare_WS2812b
         {
             //Reset the Size to the Original window Size
             Size = new Size(927, 578);
+        }
+
+
+
+        private void btnPdf_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b");
         }
 
 
@@ -294,6 +319,5 @@ namespace ScreenShare_WS2812b
                 udpSock.SendTo(send_buffer, ipESPendpoint);
             }
         }
-
     }
 }

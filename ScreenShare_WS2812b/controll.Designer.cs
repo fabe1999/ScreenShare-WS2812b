@@ -34,6 +34,7 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.btnResize = new System.Windows.Forms.Button();
             this.btnConfig = new System.Windows.Forms.Button();
+            this.btnPdf = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,20 +42,22 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnStop, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnResize, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnConfig, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnStop, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.btnResize, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnConfig, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnPdf, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 3);
             this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(122, 430);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(122, 349);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(99, 349);
             this.tableLayoutPanel1.TabIndex = 33;
             // 
             // btnStart
@@ -69,9 +72,9 @@
             this.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(3, 3);
+            this.btnStart.Location = new System.Drawing.Point(3, 38);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(116, 81);
+            this.btnStart.Size = new System.Drawing.Size(93, 72);
             this.btnStart.TabIndex = 20;
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -88,9 +91,9 @@
             this.btnStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(3, 90);
+            this.btnStop.Location = new System.Drawing.Point(3, 116);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(116, 81);
+            this.btnStop.Size = new System.Drawing.Size(93, 72);
             this.btnStop.TabIndex = 23;
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -107,9 +110,9 @@
             this.btnResize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResize.ForeColor = System.Drawing.Color.White;
-            this.btnResize.Location = new System.Drawing.Point(3, 177);
+            this.btnResize.Location = new System.Drawing.Point(3, 194);
             this.btnResize.Name = "btnResize";
-            this.btnResize.Size = new System.Drawing.Size(116, 81);
+            this.btnResize.Size = new System.Drawing.Size(93, 72);
             this.btnResize.TabIndex = 24;
             this.btnResize.UseVisualStyleBackColor = false;
             this.btnResize.Click += new System.EventHandler(this.btnResize_Click);
@@ -126,22 +129,39 @@
             this.btnConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfig.ForeColor = System.Drawing.Color.White;
-            this.btnConfig.Location = new System.Drawing.Point(3, 264);
+            this.btnConfig.Location = new System.Drawing.Point(3, 272);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(116, 82);
+            this.btnConfig.Size = new System.Drawing.Size(93, 74);
             this.btnConfig.TabIndex = 25;
             this.btnConfig.UseVisualStyleBackColor = false;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
+            // btnPdf
+            // 
+            this.btnPdf.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPdf.BackgroundImage")));
+            this.btnPdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPdf.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPdf.FlatAppearance.BorderSize = 0;
+            this.btnPdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnPdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.btnPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPdf.Location = new System.Drawing.Point(3, 3);
+            this.btnPdf.Name = "btnPdf";
+            this.btnPdf.Size = new System.Drawing.Size(93, 29);
+            this.btnPdf.TabIndex = 26;
+            this.btnPdf.UseVisualStyleBackColor = true;
+            this.btnPdf.Click += new System.EventHandler(this.btnPdf_Click);
             // 
             // controll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(122, 354);
+            this.ClientSize = new System.Drawing.Size(99, 354);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "controll";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Controlls";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.controll_FormClosing);
             this.Load += new System.EventHandler(this.controll_Load);
@@ -157,5 +177,6 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnResize;
         private System.Windows.Forms.Button btnConfig;
+        private System.Windows.Forms.Button btnPdf;
     }
 }
