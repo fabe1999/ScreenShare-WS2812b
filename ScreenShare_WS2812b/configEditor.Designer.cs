@@ -216,6 +216,7 @@
             this.tbBright.Name = "tbBright";
             this.tbBright.Size = new System.Drawing.Size(163, 45);
             this.tbBright.TabIndex = 18;
+            this.tbBright.TickStyle = System.Windows.Forms.TickStyle.None;
             this.tbBright.Value = 255;
             this.tbBright.Scroll += new System.EventHandler(this.tbBright_Scroll);
             // 
