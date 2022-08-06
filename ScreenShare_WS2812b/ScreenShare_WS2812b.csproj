@@ -52,7 +52,7 @@
     <ApplicationIcon>ScreenShare-Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D4173D518E280077BE84A203262C4647AC925AD1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>07B0F54D168B0A80DC776A58C17CD741CBFFEC8D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>ScreenShare_WS2812b_TemporaryKey.pfx</ManifestKeyFile>
