@@ -4,7 +4,8 @@ With this application you can screenshare your desktop to an ESP-connected WS281
 
 ## How to use
 
-Please download the Arduino code and configure your WiFi credentials as well as the size of your matrix.<br />
+Please download the newest release files.<br />
+Open the .ino file with the Arduino IDE and configure your WiFi credentials as well as the size of your matrix.<br />
 The program should be able to handle every size as well as a matrix with more than one tile.<br />
 For information about the matrix configuration visit the [Adafruit website](https://learn.adafruit.com/adafruit-neopixel-uberguide/neomatrix-library)
 
@@ -14,7 +15,7 @@ If the Upload is finished the ESP starts to connect to your WiFi,<br />
 if the connection was successful the matrix should light up in pink.<br />
 Now you can install the Windows application.
 
-Download the files from the Windows-Setup folder and run through the setup.<br />
+Now you can install the Windows application. Open the Windows-Setup.msi and follow the instructions.<br />
 At the first startup you need to specify which IP-Address you want to connect to,<br />
 you probably have to look up the IP in the settings of your WiFi router.<br />
 Click on save and the application should start.<br />
