@@ -305,7 +305,7 @@ namespace ScreenShare_WS2812b
 
         private void btnPdf_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b");
+            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b/blob/master/User%20guide/User-guide.pdf");
         }
 
 

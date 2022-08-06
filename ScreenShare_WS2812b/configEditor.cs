@@ -86,7 +86,7 @@ namespace ScreenShare_WS2812b
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b/");
+            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b/blob/master/User%20guide/User-guide.pdf");
         }
 
     }
