@@ -32,9 +32,19 @@ namespace ScreenShare_WS2812b
                 nrPort.Value = Convert.ToInt32(ConfigurationManager.AppSettings["port"]);
                 nrRefresh.Value = Convert.ToInt32(ConfigurationManager.AppSettings["refresh"]);
                 chbTop.Checked = Convert.ToBoolean(ConfigurationManager.AppSettings["top"]);
+                tbBright.Value = Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]);
+                labBrightness.Text = "Maximum matrix brightness: " + tbBright.Value.ToString();
                 //If there is already a Configuration Hide the Information Text
-                Size = new Size(206, 335);
+                Size = new Size(206, 361);
             }
+        }
+
+
+
+        private void tbBright_Scroll(object sender, EventArgs e)
+        {
+            //Show the Value of the Slider in the label
+            labBrightness.Text = "Maximum matrix brightness: " + tbBright.Value.ToString();
         }
 
 
@@ -68,9 +78,16 @@ namespace ScreenShare_WS2812b
             config.AppSettings.Settings["port"].Value = nrPort.Value.ToString();
             config.AppSettings.Settings["refresh"].Value = nrRefresh.Value.ToString();
             config.AppSettings.Settings["top"].Value = chbTop.Checked.ToString();
+            config.AppSettings.Settings["brightness"].Value = tbBright.Value.ToString();
             config.Save(ConfigurationSaveMode.Modified);
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b/");
+        }
+
     }
 }

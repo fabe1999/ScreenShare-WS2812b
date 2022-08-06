@@ -41,14 +41,18 @@
             this.labHead = new System.Windows.Forms.Label();
             this.labVer = new System.Windows.Forms.Label();
             this.chbTop = new System.Windows.Forms.CheckBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.labBrightness = new System.Windows.Forms.Label();
+            this.tbBright = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.nrPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nrRefresh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBright)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
             // 
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(15, 258);
+            this.btnSave.Location = new System.Drawing.Point(15, 287);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(163, 23);
             this.btnSave.TabIndex = 0;
@@ -60,7 +64,7 @@
             // 
             this.btnCancle.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancle.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCancle.Location = new System.Drawing.Point(15, 229);
+            this.btnCancle.Location = new System.Drawing.Point(15, 258);
             this.btnCancle.Name = "btnCancle";
             this.btnCancle.Size = new System.Drawing.Size(163, 23);
             this.btnCancle.TabIndex = 1;
@@ -146,7 +150,7 @@
             this.labInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labInfo.Location = new System.Drawing.Point(220, 58);
             this.labInfo.Name = "labInfo";
-            this.labInfo.Size = new System.Drawing.Size(469, 185);
+            this.labInfo.Size = new System.Drawing.Size(469, 218);
             this.labInfo.TabIndex = 12;
             this.labInfo.Text = resources.GetString("labInfo.Text");
             // 
@@ -163,23 +167,58 @@
             // labVer
             // 
             this.labVer.AutoSize = true;
-            this.labVer.Location = new System.Drawing.Point(220, 255);
+            this.labVer.Location = new System.Drawing.Point(220, 284);
             this.labVer.Name = "labVer";
             this.labVer.Size = new System.Drawing.Size(122, 26);
             this.labVer.TabIndex = 14;
-            this.labVer.Text = "created by fabe1999\r\nlast updated 14.04.2022";
+            this.labVer.Text = "created by fabe1999\r\nlast updated 06.08.2022";
             // 
             // chbTop
             // 
             this.chbTop.AutoSize = true;
             this.chbTop.Checked = true;
             this.chbTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbTop.Location = new System.Drawing.Point(15, 159);
+            this.chbTop.Location = new System.Drawing.Point(15, 218);
             this.chbTop.Name = "chbTop";
             this.chbTop.Size = new System.Drawing.Size(163, 17);
             this.chbTop.TabIndex = 15;
             this.chbTop.Text = "Show Window always on top";
             this.chbTop.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Red;
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.linkLabel1.LinkColor = System.Drawing.Color.Cyan;
+            this.linkLabel1.Location = new System.Drawing.Point(447, 250);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(73, 16);
+            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "user guide.";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Magenta;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // labBrightness
+            // 
+            this.labBrightness.AutoSize = true;
+            this.labBrightness.Location = new System.Drawing.Point(12, 156);
+            this.labBrightness.Name = "labBrightness";
+            this.labBrightness.Size = new System.Drawing.Size(156, 13);
+            this.labBrightness.TabIndex = 17;
+            this.labBrightness.Text = "Maximum matrix brightness: 255";
+            // 
+            // tbBright
+            // 
+            this.tbBright.Location = new System.Drawing.Point(15, 172);
+            this.tbBright.Maximum = 255;
+            this.tbBright.Name = "tbBright";
+            this.tbBright.Size = new System.Drawing.Size(163, 45);
+            this.tbBright.TabIndex = 18;
+            this.tbBright.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tbBright.Value = 255;
+            this.tbBright.Scroll += new System.EventHandler(this.tbBright_Scroll);
             // 
             // configEditor
             // 
@@ -188,7 +227,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.CancelButton = this.btnCancle;
-            this.ClientSize = new System.Drawing.Size(688, 296);
+            this.ClientSize = new System.Drawing.Size(688, 322);
+            this.Controls.Add(this.tbBright);
+            this.Controls.Add(this.labBrightness);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.chbTop);
             this.Controls.Add(this.labVer);
             this.Controls.Add(this.labHead);
@@ -214,6 +256,7 @@
             this.Load += new System.EventHandler(this.configEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nrPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nrRefresh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBright)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +276,8 @@
         private System.Windows.Forms.Label labHead;
         private System.Windows.Forms.Label labVer;
         private System.Windows.Forms.CheckBox chbTop;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label labBrightness;
+        private System.Windows.Forms.TrackBar tbBright;
     }
 }
