@@ -269,7 +269,7 @@
             this.btnPopout.Name = "btnPopout";
             this.btnPopout.Size = new System.Drawing.Size(52, 23);
             this.btnPopout.TabIndex = 27;
-            this.toolTip1.SetToolTip(this.btnPopout, "Detach controlls from Window");
+            this.toolTip1.SetToolTip(this.btnPopout, "Detach controls from Window");
             this.btnPopout.UseVisualStyleBackColor = false;
             this.btnPopout.Click += new System.EventHandler(this.btnPopout_Click);
             // 

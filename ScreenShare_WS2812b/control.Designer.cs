@@ -1,6 +1,6 @@
 ﻿namespace ScreenShare_WS2812b
 {
-    partial class controll
+    partial class control
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(controll));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(control));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -152,7 +152,7 @@
             this.btnPdf.UseVisualStyleBackColor = true;
             this.btnPdf.Click += new System.EventHandler(this.btnPdf_Click);
             // 
-            // controll
+            // control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -160,11 +160,11 @@
             this.ClientSize = new System.Drawing.Size(99, 354);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "controll";
+            this.Name = "control";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Controlls";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.controll_FormClosing);
-            this.Load += new System.EventHandler(this.controll_Load);
+            this.Text = "Controls";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.control_FormClosing);
+            this.Load += new System.EventHandler(this.control_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

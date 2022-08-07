@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace ScreenShare_WS2812b
 {
-    public partial class controll : Form
+    public partial class control : Form
     {
-        public controll()
+        public control()
         {
             InitializeComponent();
         }
 
-        private void controll_Load(object sender, EventArgs e)
+        private void control_Load(object sender, EventArgs e)
         {
             var form = (Share)this.Owner;
             if (form != null)
@@ -30,7 +30,7 @@ namespace ScreenShare_WS2812b
 
 
 
-        private void controll_FormClosing(object sender, FormClosingEventArgs e)
+        private void control_FormClosing(object sender, FormClosingEventArgs e)
         {
             var form = (Share)this.Owner;
             if (form != null)
@@ -99,6 +99,5 @@ namespace ScreenShare_WS2812b
                 form.btnConfig.PerformClick();
             }
         }
-
     }
 }

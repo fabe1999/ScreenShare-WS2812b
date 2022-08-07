@@ -91,11 +91,11 @@
     <Compile Include="configEditor.Designer.cs">
       <DependentUpon>configEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="controll.cs">
+    <Compile Include="control.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="controll.Designer.cs">
-      <DependentUpon>controll.cs</DependentUpon>
+    <Compile Include="control.Designer.cs">
+      <DependentUpon>control.cs</DependentUpon>
     </Compile>
     <Compile Include="share.cs">
       <SubType>Form</SubType>
@@ -108,8 +108,8 @@
     <EmbeddedResource Include="configEditor.resx">
       <DependentUpon>configEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="controll.resx">
-      <DependentUpon>controll.cs</DependentUpon>
+    <EmbeddedResource Include="control.resx">
+      <DependentUpon>control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="share.resx">
       <DependentUpon>share.cs</DependentUpon>

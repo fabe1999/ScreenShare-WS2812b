@@ -279,7 +279,7 @@ namespace ScreenShare_WS2812b
         private void btnPopout_Click(object sender, EventArgs e)
         {
             //popout the controlls
-            var form = new controll();
+            var form = new control();
             form.Location = new Point(this.Right + 10, this.Bottom - form.Height);
             form.Show(this);
         }
