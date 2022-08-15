@@ -287,7 +287,7 @@ namespace ScreenShare_WS2812b
 
         private void Share_SizeChanged(object sender, EventArgs e)
         {
-            if (this.Height <= 578 && !bControlls)
+            if (this.Height < 578 && !bControlls)
             {
                 btnPopout.PerformClick();
             }
