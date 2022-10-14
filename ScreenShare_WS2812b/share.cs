@@ -26,11 +26,10 @@ namespace ScreenShare_WS2812b
         //Variables
         int iLEDwidth = 0;
         int iLEDheight = 0;
+        int iPort;
+        string sIP;
         bool bConnected = false;
         public bool bControlls = false;
-        Socket udpSock;
-        IPAddress ipESP;
-        IPEndPoint ipESPendpoint;
 
         //Create an Array, Every LED-Pixel gets a Colorspace
         Color[,] ledPixCol;
@@ -94,8 +93,8 @@ namespace ScreenShare_WS2812b
             ConfigurationManager.RefreshSection("appSettings");
             try
             {
-                ipESP = IPAddress.Parse(ConfigurationManager.AppSettings["ip-adress"]);
-                ipESPendpoint = new IPEndPoint(ipESP, Convert.ToInt16(ConfigurationManager.AppSettings["port"]));
+                sIP = ConfigurationManager.AppSettings["ip-adress"];
+                iPort = Convert.ToInt16(ConfigurationManager.AppSettings["port"]);
                 timer1.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["refresh"]);
                 this.TopMost = Convert.ToBoolean(ConfigurationManager.AppSettings["top"]);
             }
@@ -110,66 +109,57 @@ namespace ScreenShare_WS2812b
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            //Use a Random Port to recive the answer
-            Random rnd = new Random();
-            int rePort = rnd.Next(11000, 11999);
-
-            //Save the Socket to send Pictures during Capturing
-            udpSock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-
-            //Test the Connection to the ESP (Timeout = 5 Seconds)
-            var task = Task.Run(() => espConnect(rePort));
-            if (task.Wait(TimeSpan.FromSeconds(5)))
+            try
             {
+                //send a Package with the Maximum Brightness
+                string send = "C-" + ConfigurationManager.AppSettings["brightness"];
+
+                //Connect to the ESP and send TCP Packet
+                TcpClient client = new TcpClient(sIP, iPort);
+                NetworkStream nwStream = client.GetStream();
+                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(send);
+                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+
+                //Recive the Matrix Configuration from the ESP
+                byte[] bytesToRead = new byte[client.ReceiveBufferSize];
+                int bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
+                string returnData = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
+                string[] buffer = returnData.Split(';');
+                iLEDwidth = Convert.ToInt32(buffer[0]);
+                iLEDheight = Convert.ToInt32(buffer[1]);
+
+                client.Close();
+
+                //Create an Array of Pixels with the Mesurements from the Matrix
+                ledPixCol = new Color[iLEDwidth, iLEDheight];
+
                 //If the Connection was successfull show to the User
                 bConnected = true;
                 btnConnect.BackColor = Color.Green;
                 btnConnect.FlatAppearance.MouseOverBackColor = Color.LightGreen;
                 btnConnect.Text = "Connected";
+
                 //The Matrix Size is displayed to verify the correct configuration
-                labConnected.Text = "Connected to\n" + ipESPendpoint + "\n\nMatrix size\nWidth = " + iLEDwidth + "\nHeight = " + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]);
-                return;
+                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size\nWidth = " + iLEDwidth + "\nHeight = " + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]);
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                disconnected();
             }
         }
 
 
 
-        public void espConnect(int inPort)
+        void disconnected()
         {
-            //send the Used Port to the ESP so it can send an Answer back
-            string text = "V-" + inPort.ToString();
-            byte[] send_buffer = Encoding.ASCII.GetBytes(text);
-            udpSock.SendTo(send_buffer, ipESPendpoint);
-
-            //Wait for the Answer of the ESP
-            UdpClient receivingUdpClient = new UdpClient(inPort);
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            try
-            {
-                //Recive the Answer from the ESP
-                //The ESP Sends the Mesurements of the Matrix so the PC Version is automatically set to the correct size
-                Byte[] receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
-                string returnData = Encoding.ASCII.GetString(receiveBytes);
-                string[] buffer = returnData.Split(';');
-                iLEDwidth = Convert.ToInt32(buffer[0]);
-                iLEDheight = Convert.ToInt32(buffer[1]);
-
-                //Create an Array of Pixels with the Mesurements from the Matrix
-                ledPixCol = new Color[iLEDwidth, iLEDheight];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-
-            //Send the Maximum Brightness to the ESP
-            text = "B-" + ConfigurationManager.AppSettings["brightness"];
-            send_buffer = Encoding.ASCII.GetBytes(text);
-            udpSock.SendTo(send_buffer, ipESPendpoint);
+            //If the Connection to the ESP is broken stop the Timer and show a error Message
+            timer1.Enabled = false;
+            bConnected = false;
+            btnConnect.BackColor = Color.FromArgb(192, 0, 0);
+            btnConnect.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
+            btnConnect.Text = "Connect to ESP";
+            labConnected.Text = "not connected";
+            MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -189,6 +179,7 @@ namespace ScreenShare_WS2812b
         private void timer1_Tick(object sender, EventArgs e)
         {
             //If the ESP isnt connected the Capture doesnt start
+            //The Connection is important to know the Size of the Matrix so the Program can properly resize the Captured image
             if (!bConnected)
             {
                 timer1.Enabled = false;
@@ -249,28 +240,34 @@ namespace ScreenShare_WS2812b
                 pbPrevMatrix.Image = pixPrev;
             }
 
+            //Create a String to send to the ESP with every colorvalue of one Frame
+            string send = "P-";
 
-            //Create an String for every Line of Pixels which then is send to the ESP
             for (int y = 0; y < iLEDheight; y++)
             {
-                string send = "";
                 for (int x = 0; x < iLEDwidth; x++)
                 {
-                    //This Syntax will be used to diferentiate the Colors on the ESP side
-                    //LineNumber-R[0-255]:G[0-255]:B[0-255];R[0-255]:G[0-255]:B[0-255];...
-                    send += ledPixCol[x, y].R + ":" + ledPixCol[x, y].G + ":" + ledPixCol[x, y].B + ";";
-                }
-                //Add the Line Number to the Color String
-                send = y.ToString() + "-" + send;
+                    //The Colors will be transmitted as HEX, the leading # is cut of
+                    //Every Color will be seperated with a : 
+                    send += ColorTranslator.ToHtml(ledPixCol[x, y]).Substring(1) + ":";
 
-                //Send the String as UDP Package
-                byte[] send_buffer = Encoding.ASCII.GetBytes(send);
-                udpSock.SendTo(send_buffer, ipESPendpoint);
-                if (y % 2 == 0)
-                {
-                    //Create a short delay, If this is removed the ESP Only gets about half of the UDP Packages
-                    Thread.Sleep(1);
                 }
+                //the ; indicates the end of one Row of pixels
+                send += ";";
+            }
+
+            try
+            {
+                //Send the whole Picture as a TCP Packet
+                TcpClient client = new TcpClient(sIP, iPort);
+                NetworkStream nwStream = client.GetStream();
+                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(send);
+                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                client.Close();
+            }
+            catch (Exception)
+            {
+                disconnected();
             }
         }
 
@@ -283,6 +280,7 @@ namespace ScreenShare_WS2812b
             form.Location = new Point(this.Right + 10, this.Bottom - form.Height);
             form.Show(this);
         }
+
 
 
         private void Share_SizeChanged(object sender, EventArgs e)
@@ -314,9 +312,19 @@ namespace ScreenShare_WS2812b
         {
             if (bConnected)
             {
-                //Send the command to clear the Matrix bevore closing the program
-                byte[] send_buffer = Encoding.ASCII.GetBytes("X");
-                udpSock.SendTo(send_buffer, ipESPendpoint);
+                try
+                {
+                    //Send the command to clear the Matrix bevore closing the program
+                    TcpClient client = new TcpClient(sIP, iPort);
+                    NetworkStream nwStream = client.GetStream();
+                    byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes("X");
+                    nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                    client.Close();
+                }
+                catch (Exception)
+                {
+                    //if the Matrix is already offline just close the program
+                }
             }
         }
     }
