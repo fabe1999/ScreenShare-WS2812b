@@ -26,10 +26,12 @@ namespace ScreenShare_WS2812b
         //Variables
         int iLEDwidth = 0;
         int iLEDheight = 0;
-        int iPort;
-        string sIP;
+        int iPort = 0;
+        int iDropedFrames = 0;
+        string sIP = "";
         bool bConnected = false;
         public bool bControlls = false;
+        byte[] bySendRGB565;
 
         //Create an Array, Every LED-Pixel gets a Colorspace
         Color[,] ledPixCol;
@@ -111,14 +113,13 @@ namespace ScreenShare_WS2812b
         {
             try
             {
-                //send a Package with the Maximum Brightness
-                string send = "C-" + ConfigurationManager.AppSettings["brightness"];
-
-                //Connect to the ESP and send TCP Packet
+                //Connect to the ESP and send the max Brightness
                 TcpClient client = new TcpClient(sIP, iPort);
                 NetworkStream nwStream = client.GetStream();
-                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(send);
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                byte[] bySend = new byte[2];
+                bySend[0] = (byte)'C';
+                bySend[1] = Convert.ToByte(ConfigurationManager.AppSettings["brightness"]);
+                nwStream.Write(bySend, 0, bySend.Length);
 
                 //Recive the Matrix Configuration from the ESP
                 byte[] bytesToRead = new byte[client.ReceiveBufferSize];
@@ -132,6 +133,7 @@ namespace ScreenShare_WS2812b
 
                 //Create an Array of Pixels with the Mesurements from the Matrix
                 ledPixCol = new Color[iLEDwidth, iLEDheight];
+                bySendRGB565 = new byte[(iLEDheight * iLEDwidth) * 2 + 1];
 
                 //If the Connection was successfull show to the User
                 bConnected = true;
@@ -140,11 +142,11 @@ namespace ScreenShare_WS2812b
                 btnConnect.Text = "Connected";
 
                 //The Matrix Size is displayed to verify the correct configuration
-                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size\nWidth = " + iLEDwidth + "\nHeight = " + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]);
+                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]) + "\nDropped frames: " + iDropedFrames;
             }
             catch (Exception)
             {
-                disconnected();
+                MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -159,7 +161,7 @@ namespace ScreenShare_WS2812b
             btnConnect.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
             btnConnect.Text = "Connect to ESP";
             labConnected.Text = "not connected";
-            MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("There was a connection problem.\n\nPlease verify the configuration, maybe you should choose a slower picture refresh time.\nAlso verify the power of the Matrix controller.", "Connection problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -167,6 +169,7 @@ namespace ScreenShare_WS2812b
         private void btnStart_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            iDropedFrames = 0;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -176,7 +179,7 @@ namespace ScreenShare_WS2812b
 
 
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private async void timer1_Tick(object sender, EventArgs e)
         {
             //If the ESP isnt connected the Capture doesnt start
             //The Connection is important to know the Size of the Matrix so the Program can properly resize the Captured image
@@ -186,6 +189,7 @@ namespace ScreenShare_WS2812b
                 MessageBox.Show("The ESP is not Connected,\nPlease establish a connection before you start to share the Screen.", "No Connection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
 
             //take a Screenshot of all monitors and crop it to the Size of the Transparent panel
             Graphics myGraphics = CreateGraphics();
@@ -240,35 +244,61 @@ namespace ScreenShare_WS2812b
                 pbPrevMatrix.Image = pixPrev;
             }
 
-            //Create a String to send to the ESP with every colorvalue of one Frame
-            string send = "P-";
+
+            int iIndex = 0;
+
+            //Use the First byte to signal the ESP what kind of Packe is send.
+            bySendRGB565[iIndex++] = (byte)'P';
 
             for (int y = 0; y < iLEDheight; y++)
             {
                 for (int x = 0; x < iLEDwidth; x++)
                 {
-                    //The Colors will be transmitted as HEX, the leading # is cut of
-                    //Every Color will be seperated with a : 
-                    send += ColorTranslator.ToHtml(ledPixCol[x, y]).Substring(1) + ":";
+                    //The colors are convertet to RGB565 (16 Bit) so the ESP dosnt have to do the Conversion
+                    UInt16 uiRGB565 = 0;
+                    uiRGB565 = Convert.ToUInt16(ledPixCol[x, y].B >> 3);
+                    uiRGB565 |= Convert.ToUInt16((ledPixCol[x, y].G >> 2) << 5);
+                    uiRGB565 |= Convert.ToUInt16((ledPixCol[x, y].R >> 3) << 11);
 
+                    //The 16 Bit has to be split into two different byte so it can be transmitted via TCP
+                    bySendRGB565[iIndex++] = (byte)((uiRGB565 & 0xFF00) >> 8);
+                    bySendRGB565[iIndex++] = (byte)(uiRGB565 & 0x00FF);
                 }
-                //the ; indicates the end of one Row of pixels
-                send += ";";
             }
 
+            //Creatre a variable to cancle the async tast
+            CancellationTokenSource ctSource = new CancellationTokenSource();
             try
             {
-                //Send the whole Picture as a TCP Packet
-                TcpClient client = new TcpClient(sIP, iPort);
-                NetworkStream nwStream = client.GetStream();
-                byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(send);
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-                client.Close();
+                //Start a Task to send the TCP Package, Cancle it 1ms bevore the next Timer tick starts.
+                ctSource.CancelAfter((Convert.ToInt32(ConfigurationManager.AppSettings["refresh"])) - 1);
+                Task task = Task.Run(() => tcpSend(ctSource.Token));
+                await task;
             }
-            catch (Exception)
+            catch (OperationCanceledException)
             {
+                //if the Async task is cancled count the dropped frames and update the Information.
+                ctSource.Dispose();
+                iDropedFrames++;
+                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]) + "\nDropped frames: " + iDropedFrames;
+            }
+            catch (Exception test)
+            {
+                ctSource.Dispose();
                 disconnected();
             }
+        }
+
+
+
+        async Task tcpSend(CancellationToken cToken)
+        {
+            //Send the created Byte Array ot the Picture as a TCP Packet
+            TcpClient client = new TcpClient(sIP, iPort);
+            NetworkStream nwStream = client.GetStream();
+            nwStream.WriteAsync(bySendRGB565, 0, bySendRGB565.Length, cToken);
+            client.Close();
+            cToken.ThrowIfCancellationRequested();
         }
 
 
@@ -317,7 +347,8 @@ namespace ScreenShare_WS2812b
                     //Send the command to clear the Matrix bevore closing the program
                     TcpClient client = new TcpClient(sIP, iPort);
                     NetworkStream nwStream = client.GetStream();
-                    byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes("X");
+                    byte[] bytesToSend = new byte[1];
+                    bytesToSend[0] = (byte)'X';
                     nwStream.Write(bytesToSend, 0, bytesToSend.Length);
                     client.Close();
                 }
