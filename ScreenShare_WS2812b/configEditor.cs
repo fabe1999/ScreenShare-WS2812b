@@ -67,7 +67,7 @@ namespace ScreenShare_WS2812b
             }
             catch (Exception)
             {
-                MessageBox.Show("The IP Address you entered is not a valid address..\nPlease correct the entry and try again.", "invalid IP Address", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The IP Address you entered is not a valid address.\nPlease correct the entry and try again.", "invalid IP Address", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

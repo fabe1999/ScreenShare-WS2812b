@@ -127,6 +127,11 @@
             0,
             0,
             0});
+            this.nrRefresh.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.nrRefresh.Name = "nrRefresh";
             this.nrRefresh.Size = new System.Drawing.Size(163, 20);
             this.nrRefresh.TabIndex = 11;
@@ -171,7 +176,7 @@
             this.labVer.Name = "labVer";
             this.labVer.Size = new System.Drawing.Size(122, 26);
             this.labVer.TabIndex = 14;
-            this.labVer.Text = "created by fabe1999\r\nlast updated 06.08.2022";
+            this.labVer.Text = "created by fabe1999\r\nlast updated 05.11.2022";
             // 
             // chbTop
             // 

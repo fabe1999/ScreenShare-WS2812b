@@ -57,7 +57,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(99, 349);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(100, 335);
             this.tableLayoutPanel1.TabIndex = 33;
             // 
             // btnStart
@@ -74,7 +74,7 @@
             this.btnStart.ForeColor = System.Drawing.Color.White;
             this.btnStart.Location = new System.Drawing.Point(3, 38);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(93, 72);
+            this.btnStart.Size = new System.Drawing.Size(93, 69);
             this.btnStart.TabIndex = 20;
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -91,9 +91,9 @@
             this.btnStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(3, 116);
+            this.btnStop.Location = new System.Drawing.Point(3, 113);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(93, 72);
+            this.btnStop.Size = new System.Drawing.Size(93, 69);
             this.btnStop.TabIndex = 23;
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -110,9 +110,9 @@
             this.btnResize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResize.ForeColor = System.Drawing.Color.White;
-            this.btnResize.Location = new System.Drawing.Point(3, 194);
+            this.btnResize.Location = new System.Drawing.Point(3, 188);
             this.btnResize.Name = "btnResize";
-            this.btnResize.Size = new System.Drawing.Size(93, 72);
+            this.btnResize.Size = new System.Drawing.Size(93, 69);
             this.btnResize.TabIndex = 24;
             this.btnResize.UseVisualStyleBackColor = false;
             this.btnResize.Click += new System.EventHandler(this.btnResize_Click);
@@ -129,9 +129,9 @@
             this.btnConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfig.ForeColor = System.Drawing.Color.White;
-            this.btnConfig.Location = new System.Drawing.Point(3, 272);
+            this.btnConfig.Location = new System.Drawing.Point(3, 263);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(93, 74);
+            this.btnConfig.Size = new System.Drawing.Size(93, 69);
             this.btnConfig.TabIndex = 25;
             this.btnConfig.UseVisualStyleBackColor = false;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
@@ -147,7 +147,7 @@
             this.btnPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPdf.Location = new System.Drawing.Point(3, 3);
             this.btnPdf.Name = "btnPdf";
-            this.btnPdf.Size = new System.Drawing.Size(93, 29);
+            this.btnPdf.Size = new System.Drawing.Size(94, 29);
             this.btnPdf.TabIndex = 26;
             this.btnPdf.UseVisualStyleBackColor = true;
             this.btnPdf.Click += new System.EventHandler(this.btnPdf_Click);
@@ -157,7 +157,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.ClientSize = new System.Drawing.Size(99, 354);
+            this.ClientSize = new System.Drawing.Size(100, 339);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "control";

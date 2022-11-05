@@ -46,7 +46,7 @@ namespace ScreenShare_WS2812b
                     return;
                 }
                 //Bring back the Controllbuttons on the Share form
-                form.tabControlls.Location = new Point(form.Size.Width - form.tabControlls.Size.Width - 20, 177);
+                form.tabControlls.Location = new Point(form.Size.Width - form.tabControlls.Size.Width - 25, 191);
                 form.bControlls = false;
             }
         }

@@ -124,7 +124,7 @@
             this.btnStop.ForeColor = System.Drawing.Color.White;
             this.btnStop.Location = new System.Drawing.Point(3, 116);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(116, 72);
+            this.btnStop.Size = new System.Drawing.Size(116, 67);
             this.btnStop.TabIndex = 23;
             this.toolTip1.SetToolTip(this.btnStop, "Pause the Screensharing");
             this.btnStop.UseVisualStyleBackColor = false;
@@ -166,9 +166,9 @@
             this.btnStart.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(3, 38);
+            this.btnStart.Location = new System.Drawing.Point(3, 43);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(116, 72);
+            this.btnStart.Size = new System.Drawing.Size(116, 67);
             this.btnStart.TabIndex = 20;
             this.toolTip1.SetToolTip(this.btnStart, "Start the Screensharing");
             this.btnStart.UseVisualStyleBackColor = false;
@@ -180,9 +180,9 @@
             this.labConnected.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labConnected.Location = new System.Drawing.Point(774, 58);
             this.labConnected.Name = "labConnected";
-            this.labConnected.Size = new System.Drawing.Size(132, 116);
+            this.labConnected.Size = new System.Drawing.Size(132, 130);
             this.labConnected.TabIndex = 30;
-            this.labConnected.Text = " not connected";
+            this.labConnected.Text = "not connected";
             // 
             // labPreview
             // 
@@ -207,17 +207,17 @@
             this.tabControlls.Controls.Add(this.btnStop, 0, 2);
             this.tabControlls.Controls.Add(this.btnResize, 0, 3);
             this.tabControlls.Controls.Add(this.btnConfig, 0, 4);
-            this.tabControlls.Location = new System.Drawing.Point(777, 177);
+            this.tabControlls.Location = new System.Drawing.Point(777, 191);
             this.tabControlls.MaximumSize = new System.Drawing.Size(122, 430);
             this.tabControlls.MinimumSize = new System.Drawing.Size(122, 150);
             this.tabControlls.Name = "tabControlls";
             this.tabControlls.RowCount = 5;
-            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tabControlls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tabControlls.Size = new System.Drawing.Size(122, 349);
+            this.tabControlls.Size = new System.Drawing.Size(122, 335);
             this.tabControlls.TabIndex = 32;
             // 
             // tableLayoutPanel2
@@ -232,7 +232,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(116, 29);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(116, 34);
             this.tableLayoutPanel2.TabIndex = 33;
             // 
             // btnPdf
@@ -248,7 +248,7 @@
             this.btnPdf.ForeColor = System.Drawing.Color.White;
             this.btnPdf.Location = new System.Drawing.Point(61, 3);
             this.btnPdf.Name = "btnPdf";
-            this.btnPdf.Size = new System.Drawing.Size(52, 23);
+            this.btnPdf.Size = new System.Drawing.Size(52, 28);
             this.btnPdf.TabIndex = 28;
             this.toolTip1.SetToolTip(this.btnPdf, "Open user guide");
             this.btnPdf.UseVisualStyleBackColor = false;
@@ -267,7 +267,7 @@
             this.btnPopout.ForeColor = System.Drawing.Color.White;
             this.btnPopout.Location = new System.Drawing.Point(3, 3);
             this.btnPopout.Name = "btnPopout";
-            this.btnPopout.Size = new System.Drawing.Size(52, 23);
+            this.btnPopout.Size = new System.Drawing.Size(52, 28);
             this.btnPopout.TabIndex = 27;
             this.toolTip1.SetToolTip(this.btnPopout, "Detach controls from Window");
             this.btnPopout.UseVisualStyleBackColor = false;
@@ -285,9 +285,9 @@
             this.btnResize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResize.ForeColor = System.Drawing.Color.White;
-            this.btnResize.Location = new System.Drawing.Point(3, 194);
+            this.btnResize.Location = new System.Drawing.Point(3, 189);
             this.btnResize.Name = "btnResize";
-            this.btnResize.Size = new System.Drawing.Size(116, 72);
+            this.btnResize.Size = new System.Drawing.Size(116, 67);
             this.btnResize.TabIndex = 24;
             this.toolTip1.SetToolTip(this.btnResize, "Resize the window to its original size");
             this.btnResize.UseVisualStyleBackColor = false;
@@ -305,9 +305,9 @@
             this.btnConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfig.ForeColor = System.Drawing.Color.White;
-            this.btnConfig.Location = new System.Drawing.Point(3, 272);
+            this.btnConfig.Location = new System.Drawing.Point(3, 262);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(116, 74);
+            this.btnConfig.Size = new System.Drawing.Size(116, 70);
             this.btnConfig.TabIndex = 25;
             this.toolTip1.SetToolTip(this.btnConfig, "Change the settings");
             this.btnConfig.UseVisualStyleBackColor = false;
