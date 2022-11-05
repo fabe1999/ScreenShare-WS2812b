@@ -27,6 +27,7 @@ namespace ScreenShare_WS2812b
         int iLEDwidth = 0;
         int iLEDheight = 0;
         int iPort = 0;
+        int iOpenTasks = 0;
         int iDropedFrames = 0;
         string sIP = "";
         bool bConnected = false;
@@ -142,26 +143,12 @@ namespace ScreenShare_WS2812b
                 btnConnect.Text = "Connected";
 
                 //The Matrix Size is displayed to verify the correct configuration
-                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]) + "\nDropped frames: " + iDropedFrames;
+                updateInfo();
             }
             catch (Exception)
             {
                 MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-
-
-        void disconnected()
-        {
-            //If the Connection to the ESP is broken stop the Timer and show a error Message
-            timer1.Enabled = false;
-            bConnected = false;
-            btnConnect.BackColor = Color.FromArgb(192, 0, 0);
-            btnConnect.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
-            btnConnect.Text = "Connect to ESP";
-            labConnected.Text = "not connected";
-            MessageBox.Show("There was a connection problem.\n\nPlease verify the configuration, maybe you should choose a slower picture refresh time.\nAlso verify the power of the Matrix controller.", "Connection problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -270,29 +257,67 @@ namespace ScreenShare_WS2812b
             CancellationTokenSource ctSource = new CancellationTokenSource();
             try
             {
-                //Start a Task to send the TCP Package, Cancle it 1ms bevore the next Timer tick starts.
-                ctSource.CancelAfter((Convert.ToInt32(ConfigurationManager.AppSettings["refresh"])) - 1);
-                Task task = Task.Run(() => tcpSend(ctSource.Token));
-                await task;
+                //if there already is a task Open dont start another one.
+                iOpenTasks++;
+                if (iOpenTasks < 2)
+                {
+                    //Start a Task to send the TCP Package, Cancle it 1ms bevore the next Timer tick starts.
+                    ctSource.CancelAfter((Convert.ToInt32(ConfigurationManager.AppSettings["refresh"])) - 1);
+                    Task task = Task.Run(() => tcpSend(ctSource.Token));
+                    await task;
+                }
+                else
+                {
+                    iDropedFrames++;
+                    updateInfo();
+                }
             }
             catch (OperationCanceledException)
             {
                 //if the Async task is cancled count the dropped frames and update the Information.
                 ctSource.Dispose();
                 iDropedFrames++;
-                labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + Convert.ToInt32(ConfigurationManager.AppSettings["brightness"]) + "\nDropped frames: " + iDropedFrames;
+                updateInfo();
             }
-            catch (Exception test)
+            catch (Exception)
             {
                 ctSource.Dispose();
                 disconnected();
             }
+            finally
+            {
+                iOpenTasks--;
+            }
+        }
+
+
+        void disconnected()
+        {
+            if (bConnected)
+            {
+                //If the Connection to the ESP is broken stop the Timer and show a error Message
+                timer1.Enabled = false;
+                bConnected = false;
+                btnConnect.BackColor = Color.FromArgb(192, 0, 0);
+                btnConnect.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
+                btnConnect.Text = "Connect to ESP";
+                labConnected.Text = "not connected";
+                MessageBox.Show("There was a connection problem.\n\nPlease verify the configuration, maybe you should choose a slower picture refresh time.\nAlso verify the power delivery of the Matrix controller.", "Connection problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+        void updateInfo()
+        {
+            labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + ConfigurationManager.AppSettings["brightness"] + "\nRefresh: " + ConfigurationManager.AppSettings["refresh"] + "ms\nDropped frames: " + iDropedFrames;
         }
 
 
 
         async Task tcpSend(CancellationToken cToken)
         {
+            //The Send task is handled Async to minimize input lag from the GUI
             //Send the created Byte Array ot the Picture as a TCP Packet
             TcpClient client = new TcpClient(sIP, iPort);
             NetworkStream nwStream = client.GetStream();

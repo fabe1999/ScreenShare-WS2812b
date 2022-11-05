@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_29D3D0A4E95252E9045C79823B95640A"
+        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4083B8D420434395A887A7E969C62D03"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -27,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
-        "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_558E082F4DBE457DB56764732570902D"
         "MsmSig" = "8:_UNDEFINED"
@@ -40,7 +40,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_86517B59BEEEE24A51595C9CBE7CB223"
+        "OwnerKey" = "8:_29D3D0A4E95252E9045C79823B95640A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -130,7 +130,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.6.1"
+                "FrameworkVersion" = "8:v4.6.1"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -138,34 +138,14 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4083B8D420434395A887A7E969C62D03"
-            {
-            "SourcePath" = "8:..\\ScreenShare_WS2812b\\ScreenShare-Icon.ico"
-            "TargetName" = "8:ScreenShare-Icon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_48653DFC589841E5B7624C2FD504D7FE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_86517B59BEEEE24A51595C9CBE7CB223"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_29D3D0A4E95252E9045C79823B95640A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_86517B59BEEEE24A51595C9CBE7CB223"
+                    "_29D3D0A4E95252E9045C79823B95640A"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
@@ -187,6 +167,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4083B8D420434395A887A7E969C62D03"
+            {
+            "SourcePath" = "8:..\\ScreenShare_WS2812b\\ScreenShare-Icon.ico"
+            "TargetName" = "8:ScreenShare-Icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_48653DFC589841E5B7624C2FD504D7FE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -245,15 +245,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScreenShare WS2812B"
-        "ProductCode" = "8:{5BF25F0F-6133-4038-92D9-20483FDD85F9}"
-        "PackageCode" = "8:{B04EECEC-0AF5-4492-9191-7D12ABCDC22A}"
+        "ProductCode" = "8:{9B764F1C-A5D3-4833-A68C-ECB05C7B61D0}"
+        "PackageCode" = "8:{726708FE-1037-46C3-9BB4-3AADE4C74C33}"
         "UpgradeCode" = "8:{B81A6F7F-EA38-4D98-B530-96A31DF3AC48}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:fabe1999"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/fabe1999/ScreenShare-WS2812b"

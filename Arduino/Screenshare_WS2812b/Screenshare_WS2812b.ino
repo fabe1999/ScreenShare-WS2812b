@@ -8,7 +8,7 @@
 //This Program is used in Combination with a Windows Forms Application to Screenshare your PC Screen to an WS2812b Matrix
 //It is recomendet to use a ESP32
 //Created by fabe1999
-//last updated: 14.10.2022
+//last updated: 05.11.2022
 
 
 
