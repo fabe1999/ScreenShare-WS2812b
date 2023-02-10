@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace ScreenShare_WS2812b
 {
@@ -26,13 +27,18 @@ namespace ScreenShare_WS2812b
         //Variables
         int iLEDwidth = 0;
         int iLEDheight = 0;
-        int iPort = 0;
-        int iOpenTasks = 0;
-        int iDropedFrames = 0;
-        string sIP = "";
+        int iNumberPackages = 0;
+        int iLines = 0;
+        int iYIndex = 0;
         bool bConnected = false;
+        bool bInterlace = false;
         public bool bControlls = false;
         byte[] bySendRGB565;
+        int iMaxUDPSize = 0;
+
+        Socket udpSock;
+        IPAddress ipESP;
+        IPEndPoint ipESPendpoint;
 
         //Create an Array, Every LED-Pixel gets a Colorspace
         Color[,] ledPixCol;
@@ -62,6 +68,7 @@ namespace ScreenShare_WS2812b
                         else
                         {
                             this.Close();
+                            return;
                         }
                     }
                 }
@@ -89,21 +96,22 @@ namespace ScreenShare_WS2812b
 
 
 
-        //Every time the Configuration is changed the Variables has to be updated
+        //Every time the Configuration is changed the Variables have to be updated
         public void readConfig()
         {
             //Try to set the Variables to the Saved Config
             ConfigurationManager.RefreshSection("appSettings");
             try
             {
-                sIP = ConfigurationManager.AppSettings["ip-adress"];
-                iPort = Convert.ToInt16(ConfigurationManager.AppSettings["port"]);
+                ipESP = IPAddress.Parse(ConfigurationManager.AppSettings["ip-adress"]);
+                ipESPendpoint = new IPEndPoint(ipESP, Convert.ToInt16(ConfigurationManager.AppSettings["port"]));
+                bInterlace = Convert.ToBoolean(ConfigurationManager.AppSettings["interlace"]);
                 timer1.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["refresh"]);
                 this.TopMost = Convert.ToBoolean(ConfigurationManager.AppSettings["top"]);
             }
             catch (Exception)
             {
-                MessageBox.Show("There is a problem with the Configuration.\tPlease set a new Configuration and try again", "Config Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There is a problem with the Configuration.\nPlease set a new Configuration and try again", "Config Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -114,36 +122,54 @@ namespace ScreenShare_WS2812b
         {
             try
             {
-                //Connect to the ESP and send the max Brightness
-                TcpClient client = new TcpClient(sIP, iPort);
-                NetworkStream nwStream = client.GetStream();
-                byte[] bySend = new byte[2];
-                bySend[0] = (byte)'C';
-                bySend[1] = Convert.ToByte(ConfigurationManager.AppSettings["brightness"]);
-                nwStream.Write(bySend, 0, bySend.Length);
+                //Use a Random Port to recive the answer
+                Random rnd = new Random();
+                int rePort = rnd.Next(0, 254);
 
-                //Recive the Matrix Configuration from the ESP
-                byte[] bytesToRead = new byte[client.ReceiveBufferSize];
-                int bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
-                string returnData = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                string[] buffer = returnData.Split(';');
-                iLEDwidth = Convert.ToInt32(buffer[0]);
-                iLEDheight = Convert.ToInt32(buffer[1]);
+                //Save the Socket to send Pictures during Capturing
+                udpSock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-                client.Close();
+                //Test the Connection to the ESP (Timeout = 5 Seconds)
+                var task = Task.Run(() => espConnect(rePort));
+                if (task.Wait(TimeSpan.FromSeconds(5)))
+                {
+                    //If the Connection was successfull show to the User
+                    bConnected = true;
+                    btnConnect.BackColor = Color.Green;
+                    btnConnect.FlatAppearance.MouseOverBackColor = Color.LightGreen;
+                    btnConnect.Text = "Connected";
 
-                //Create an Array of Pixels with the Mesurements from the Matrix
-                ledPixCol = new Color[iLEDwidth, iLEDheight];
-                bySendRGB565 = new byte[(iLEDheight * iLEDwidth) * 2 + 1];
+                    //Create an Array of Pixels with the Mesurements from the Matrix
+                    ledPixCol = new Color[iLEDwidth, iLEDheight];
 
-                //If the Connection was successfull show to the User
-                bConnected = true;
-                btnConnect.BackColor = Color.Green;
-                btnConnect.FlatAppearance.MouseOverBackColor = Color.LightGreen;
-                btnConnect.Text = "Connected";
+                    //Calculate how many UDP Packages are needet to display a whole Picture with Regards to the Max UDP Package Size
+                    iNumberPackages = Convert.ToInt32(Math.Round(((iLEDheight * iLEDwidth * 2.0 / iMaxUDPSize) + 0.5), MidpointRounding.AwayFromZero));
+                    iLines = Convert.ToInt32(Math.Round((iLEDheight * 1.0) / iNumberPackages + 0.5));
+                    bySendRGB565 = new byte[(((iLines * iLEDwidth) * 2) + 1)];
+                    if (iNumberPackages == 1)
+                    {
+                        bInterlace = false;
+                    }
 
-                //The Matrix Size is displayed to verify the correct configuration
-                updateInfo();
+                    //If the Packages are split evenly throughout the refresh time the animation will be more fluent
+                    //and the ESP wont be overloaded with to many Packages at the same time
+                    if (bInterlace)
+                    {
+                        timer1.Interval = (Convert.ToInt32(ConfigurationManager.AppSettings["refresh"])) / iNumberPackages;
+                    }
+                    else
+                    {
+                        timer1.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["refresh"]);
+                    }
+
+                    //The Matrix Size is displayed to verify the correct configuration
+                    updateInfo();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("The answer has taken to long.\nPlease verify the configured IP-Address and port.\nTry again after changing the Config", "Time out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception)
             {
@@ -153,10 +179,41 @@ namespace ScreenShare_WS2812b
 
 
 
+        public void espConnect(int inPort)
+        {
+            //send the used Port to the ESP so it can send an answer back on the same port.
+            //Also the brightness will be transmitted
+            byte[] bySend = new byte[3];
+            bySend[0] = (byte)'C';
+            bySend[1] = Convert.ToByte(ConfigurationManager.AppSettings["brightness"]);
+            bySend[2] = Convert.ToByte(inPort);
+            udpSock.SendTo(bySend, ipESPendpoint);
+
+            //Wait for the Answer of the ESP
+            UdpClient receivingUdpClient = new UdpClient(inPort);
+            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+            try
+            {
+                //Recive the Answer from the ESP
+                //The ESP Sends the Mesurements of the Matrix so the PC Version is automatically set to the correct size
+                Byte[] receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
+                string returnData = Encoding.ASCII.GetString(receiveBytes);
+                string[] buffer = returnData.Split(';');
+                iLEDwidth = Convert.ToInt32(buffer[0]);
+                iLEDheight = Convert.ToInt32(buffer[1]);
+                iMaxUDPSize = (Convert.ToInt32(buffer[2]));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected Error occurred.\nPlease try Again.\n\nIf the Error still exists please report a bug on GitHub", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
-            iDropedFrames = 0;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -232,77 +289,83 @@ namespace ScreenShare_WS2812b
             }
 
 
-            int iIndex = 0;
-
-            //Use the First byte to signal the ESP what kind of Packe is send.
-            bySendRGB565[iIndex++] = (byte)'P';
-
-            for (int y = 0; y < iLEDheight; y++)
+            //Reset the Y Variable acording to the Display-mode, 
+            //If the Packages wont be split throughout the refresh Time it has to be Reseted every time.
+            if (!bInterlace)
             {
-                for (int x = 0; x < iLEDwidth; x++)
+                iYIndex = 0;
+            }
+            if (iYIndex >= iLEDheight)
+            {
+                iYIndex = 0;
+            }
+
+            //One Single Package is created and send to the ESP,
+            //The other Parts will be Send the next Time the Timer_tick happens
+            if (bInterlace)
+            {
+                int iIndex = 0;
+                //The first byte is used to signal the ESP at what Y Value the current Color-Informations start.
+                //each LED Uses 16 Bits for its Colors, so 2 Bytes.
+                bySendRGB565[iIndex++] = (byte)iYIndex;
+                int iloop = Convert.ToInt32(Math.Round((iLEDheight * 1.0) / (iNumberPackages * 1.0) + 0.5));
+                for (int y = 0; y < iLines; y++)
                 {
-                    //The colors are convertet to RGB565 (16 Bit) so the ESP dosnt have to do the Conversion
-                    UInt16 uiRGB565 = 0;
-                    uiRGB565 = Convert.ToUInt16(ledPixCol[x, y].B >> 3);
-                    uiRGB565 |= Convert.ToUInt16((ledPixCol[x, y].G >> 2) << 5);
-                    uiRGB565 |= Convert.ToUInt16((ledPixCol[x, y].R >> 3) << 11);
+                    //If the Number of Packages is uneven the last Package has less Information than the first two
+                    //Stop the Program from overfilling the Last Package
+                    if (iYIndex < iLEDheight)
+                    {
+                        for (int x = 0; x < iLEDwidth; x++)
+                        {
+                            //The colors are convertet to RGB565 (16 Bit) so the ESP dosnt have to do the Conversion
+                            UInt16 uiRGB565 = 0;
+                            uiRGB565 = Convert.ToUInt16(ledPixCol[x, iYIndex].B >> 3);
+                            uiRGB565 |= Convert.ToUInt16((ledPixCol[x, iYIndex].G >> 2) << 5);
+                            uiRGB565 |= Convert.ToUInt16((ledPixCol[x, iYIndex].R >> 3) << 11);
 
-                    //The 16 Bit has to be split into two different byte so it can be transmitted via TCP
-                    bySendRGB565[iIndex++] = (byte)((uiRGB565 & 0xFF00) >> 8);
-                    bySendRGB565[iIndex++] = (byte)(uiRGB565 & 0x00FF);
+                            //The 16 Bit has to be split into two different byte so it can be transmitted via UDP
+                            bySendRGB565[iIndex++] = (byte)((uiRGB565 & 0xFF00) >> 8);
+                            bySendRGB565[iIndex++] = (byte)(uiRGB565 & 0x00FF);
+                        }
+                        iYIndex++;
+                    }
                 }
+                //Send the String as UDP Package
+                udpSock.SendTo(bySendRGB565, ipESPendpoint);
+                Array.Clear(bySendRGB565, 0, bySendRGB565.Length);
             }
 
-            //Creatre a variable to cancle the async tast
-            CancellationTokenSource ctSource = new CancellationTokenSource();
-            try
+            //If the Picture isnt split all the Color Information is send in one go
+            //Its still split up according to the Package Size but all of the Packages are send as fast as possible.
+            //This is usefull for Displaying Pictures or if the Refreshtime is really slow.
+            else
             {
-                //if there already is a task Open dont start another one.
-                iOpenTasks++;
-                if (iOpenTasks < 2)
+                for (int p = 0; p < iNumberPackages; p++)
                 {
-                    //Start a Task to send the TCP Package, Cancle it 1ms bevore the next Timer tick starts.
-                    ctSource.CancelAfter((Convert.ToInt32(ConfigurationManager.AppSettings["refresh"])) - 1);
-                    Task task = Task.Run(() => tcpSend(ctSource.Token));
-                    await task;
-                }
-                else
-                {
-                    iDropedFrames++;
-                    updateInfo();
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                //if the Async task is cancled count the dropped frames and update the Information.
-                ctSource.Dispose();
-                iDropedFrames++;
-                updateInfo();
-            }
-            catch (Exception)
-            {
-                ctSource.Dispose();
-                disconnected();
-            }
-            finally
-            {
-                iOpenTasks--;
-            }
-        }
+                    int iIndex = 0;
+                    //The first byte is used to signal the ESP where the current Color-Informations start.
+                    //each LED Uses 16 Bits for its Colors so 2 Bytes.
+                    bySendRGB565[iIndex++] = (byte)iYIndex;
+                    for (int y = 0; y < (iLEDheight / iNumberPackages); y++)
+                    {
+                        for (int x = 0; x < iLEDwidth; x++)
+                        {
+                            //The colors are convertet to RGB565 (16 Bit) so the ESP dosnt have to do the Conversion
+                            UInt16 uiRGB565 = 0;
+                            uiRGB565 = Convert.ToUInt16(ledPixCol[x, iYIndex].B >> 3);
+                            uiRGB565 |= Convert.ToUInt16((ledPixCol[x, iYIndex].G >> 2) << 5);
+                            uiRGB565 |= Convert.ToUInt16((ledPixCol[x, iYIndex].R >> 3) << 11);
 
-
-        void disconnected()
-        {
-            if (bConnected)
-            {
-                //If the Connection to the ESP is broken stop the Timer and show a error Message
-                timer1.Enabled = false;
-                bConnected = false;
-                btnConnect.BackColor = Color.FromArgb(192, 0, 0);
-                btnConnect.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
-                btnConnect.Text = "Connect to ESP";
-                labConnected.Text = "not connected";
-                MessageBox.Show("There was a connection problem.\n\nPlease verify the configuration, maybe you should choose a slower picture refresh time.\nAlso verify the power delivery of the Matrix controller.", "Connection problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //The 16 Bit has to be split into two different byte so it can be transmitted via TCP
+                            bySendRGB565[iIndex++] = (byte)((uiRGB565 & 0xFF00) >> 8);
+                            bySendRGB565[iIndex++] = (byte)(uiRGB565 & 0x00FF);
+                        }
+                        iYIndex++;
+                    }
+                    //Send the String as UDP Package
+                    udpSock.SendTo(bySendRGB565, ipESPendpoint);
+                    Array.Clear(bySendRGB565, 0, bySendRGB565.Length);
+                }
             }
         }
 
@@ -310,20 +373,7 @@ namespace ScreenShare_WS2812b
 
         void updateInfo()
         {
-            labConnected.Text = "Connected to\n" + sIP + ":" + iPort + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + ConfigurationManager.AppSettings["brightness"] + "\nRefresh: " + ConfigurationManager.AppSettings["refresh"] + "ms\nDropped frames: " + iDropedFrames;
-        }
-
-
-
-        async Task tcpSend(CancellationToken cToken)
-        {
-            //The Send task is handled Async to minimize input lag from the GUI
-            //Send the created Byte Array ot the Picture as a TCP Packet
-            TcpClient client = new TcpClient(sIP, iPort);
-            NetworkStream nwStream = client.GetStream();
-            nwStream.WriteAsync(bySendRGB565, 0, bySendRGB565.Length, cToken);
-            client.Close();
-            cToken.ThrowIfCancellationRequested();
+            labConnected.Text = "Connected to\n" + ipESPendpoint + "\n\nMatrix size: " + iLEDwidth + "*" + iLEDheight + "\nMax brightness = " + ConfigurationManager.AppSettings["brightness"] + "\nRefresh: " + ConfigurationManager.AppSettings["refresh"] + "ms\nPackages: " + iNumberPackages + "\nInteraced: " + bInterlace;
         }
 
 
@@ -340,6 +390,7 @@ namespace ScreenShare_WS2812b
 
         private void Share_SizeChanged(object sender, EventArgs e)
         {
+            //if the Main window is to smal for the Controlls they will be poped our automaticaly.
             if (this.Height < 578 && !bControlls)
             {
                 btnPopout.PerformClick();
@@ -358,6 +409,8 @@ namespace ScreenShare_WS2812b
 
         private void btnPdf_Click(object sender, EventArgs e)
         {
+            //Open the Userguide on GitHub
+            //This ensures its always the newest version.
             System.Diagnostics.Process.Start("https://github.com/fabe1999/ScreenShare-WS2812b/blob/master/User%20guide/User-guide.pdf");
         }
 
@@ -369,13 +422,10 @@ namespace ScreenShare_WS2812b
             {
                 try
                 {
-                    //Send the command to clear the Matrix bevore closing the program
-                    TcpClient client = new TcpClient(sIP, iPort);
-                    NetworkStream nwStream = client.GetStream();
+                    //Send the command to clear the Matrix before closing the program
                     byte[] bytesToSend = new byte[1];
                     bytesToSend[0] = (byte)'X';
-                    nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-                    client.Close();
+                    udpSock.SendTo(bytesToSend, ipESPendpoint);
                 }
                 catch (Exception)
                 {
