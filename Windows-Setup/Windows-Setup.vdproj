@@ -130,7 +130,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:v4.6.1"
+                "FrameworkVersion" = "8:v4.6.1 "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -245,15 +245,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScreenShare WS2812B"
-        "ProductCode" = "8:{9B764F1C-A5D3-4833-A68C-ECB05C7B61D0}"
-        "PackageCode" = "8:{726708FE-1037-46C3-9BB4-3AADE4C74C33}"
+        "ProductCode" = "8:{7E6E9CC5-FEA9-4034-9AC5-1300B5BD8C22}"
+        "PackageCode" = "8:{CEC33041-1B6E-45B5-9B71-451076026CAF}"
         "UpgradeCode" = "8:{B81A6F7F-EA38-4D98-B530-96A31DF3AC48}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.0"
+        "ProductVersion" = "8:1.3.0"
         "Manufacturer" = "8:fabe1999"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/fabe1999/ScreenShare-WS2812b"
